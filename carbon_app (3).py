@@ -1,6 +1,6 @@
 # -------------------------------------------------------------
 # 🌿 Carbon Footprint Estimator + Chatbot Suggestion Engine
-# Author: Srinidhi (ECE)
+
 # -------------------------------------------------------------
 
 import streamlit as st
@@ -13,7 +13,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_absolute_error, r2_score
 
 # -------------------------------------------------------------
-# 🧭 PAGE SETUP
+#  PAGE SETUP
 # -------------------------------------------------------------
 st.set_page_config(page_title="Carbon Footprint Assistant", page_icon="🌿", layout="wide")
 
@@ -21,7 +21,7 @@ st.title("🌿 Carbon Footprint Estimator & Sustainability Chatbot")
 st.write("Estimate your CO₂ emissions and chat with an eco-assistant for green living tips 🌎")
 
 # -------------------------------------------------------------
-# 📂 LOAD DATASET
+#  LOAD DATASET
 # -------------------------------------------------------------
 @st.cache_data
 def load_data():
@@ -35,7 +35,7 @@ df = load_data()
 st.success("✅ Dataset Loaded Successfully!")
 
 # -------------------------------------------------------------
-# ⚙ ENCODE DATA FOR TRAINING
+#  ENCODE DATA FOR TRAINING
 # -------------------------------------------------------------
 encoded_df = df.copy()
 label_encoders = {}
@@ -49,7 +49,7 @@ X = encoded_df.drop(columns=['Emission'])
 y = encoded_df['Emission']
 
 # -------------------------------------------------------------
-# 🧠 TRAIN MODEL
+#  TRAIN MODEL
 # -------------------------------------------------------------
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 model = LinearRegression()
@@ -61,12 +61,12 @@ r2 = r2_score(y_test, y_pred)
 st.write(f"📊 *Model Performance:* MAE = {mae:.2f}, R² = {r2:.2f}")
 
 # -------------------------------------------------------------
-# 🔸 LAYOUT: TWO COLUMNS (Estimator + Chatbot)
+# LAYOUT: TWO COLUMNS (Estimator + Chatbot)
 # -------------------------------------------------------------
 col1, col2 = st.columns(2)
 
 # -------------------------------------------------------------
-# 🌍 COLUMN 1: CARBON FOOTPRINT ESTIMATOR
+#  COLUMN 1: CARBON FOOTPRINT ESTIMATOR
 # -------------------------------------------------------------
 with col1:
     st.subheader("🧾 Estimate Your Carbon Footprint")
@@ -107,22 +107,22 @@ with col1:
         def suggestion_engine(predicted):
             tips = []
             if predicted > 600:
-                tips.append("🚗 Try using public transport or reducing vehicle distance.")
-                tips.append("💡 Switch to renewable energy sources where possible.")
+                tips.append(" Try using public transport or reducing vehicle distance.")
+                tips.append(" Switch to renewable energy sources where possible.")
             elif predicted > 400:
-                tips.append("🔥 Reduce long showers and unplug unused appliances.")
-                tips.append("🥗 Adopt a more plant-based diet.")
+                tips.append(" Reduce long showers and unplug unused appliances.")
+                tips.append(" Adopt a more plant-based diet.")
             else:
-                tips.append("🌿 Excellent! Your carbon footprint is within a sustainable range.")
+                tips.append(" Excellent! Your carbon footprint is within a sustainable range.")
             return tips
 
         tips = suggestion_engine(predicted)
-        st.subheader("🌱 Personalized Suggestions:")
+        st.subheader(" Personalized Suggestions:")
         for tip in tips:
             st.write("- ", tip)
 
         # -------------------------------------------------------------
-        # 📊 Visualization
+        #  Visualization
         # -------------------------------------------------------------
         fig, ax = plt.subplots(figsize=(8, 5))
         ax.bar(encoded_input.columns, encoded_input.iloc[0], color="seagreen")
@@ -132,10 +132,10 @@ with col1:
         st.pyplot(fig)
 
 # -------------------------------------------------------------
-# 💬 COLUMN 2: CHATBOT FOR GREEN ADVICE
+#  COLUMN 2: CHATBOT FOR GREEN ADVICE
 # -------------------------------------------------------------
 with col2:
-    st.subheader("💬 Ask the Eco-Assistant")
+    st.subheader(" Ask the Eco-Assistant")
 
     st.info("Ask me things like:\n• How can I reduce CO₂ from travel?\n• What are sustainable cooking methods?\n• How can I save electricity at home?")
 
@@ -156,7 +156,7 @@ with col2:
             st.markdown(user_input)
 
         q = user_input.lower()
-        response = "🌿 I'm here to help! "
+        response = " I'm here to help! "
 
         if "electricity" in q:
             response += "Switch to LED bulbs, unplug unused devices, and install solar panels."
